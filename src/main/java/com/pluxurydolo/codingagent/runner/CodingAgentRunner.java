@@ -7,8 +7,10 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 import org.springframework.boot.CommandLineRunner;
 
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.jline.reader.LineReader.Option.AUTO_FRESH_LINE;
 
 public class CodingAgentRunner implements CommandLineRunner {
     private final CodingAgentChatFacade codingAgentChatFacade;
@@ -22,14 +24,14 @@ public class CodingAgentRunner implements CommandLineRunner {
         try (
             Terminal terminal = TerminalBuilder.builder()
                 .system(true)
-                .encoding(StandardCharsets.UTF_8)
+                .encoding(UTF_8)
                 .build()
         ) {
             String conversationId = UUID.randomUUID().toString();
 
             LineReader reader = LineReaderBuilder.builder()
                 .terminal(terminal)
-                .option(LineReader.Option.AUTO_FRESH_LINE, true)
+                .option(AUTO_FRESH_LINE, true)
                 .build();
 
             System.out.println("🚀 Coding Agent готов к работе");
